@@ -49,11 +49,11 @@ export class Header implements OnInit {
   }
 
   submitRecherche() {
-    const rawValues = this.formulaire.value;
+    const formValues = this.formulaire.value;
     const filtres: any = {};
 
-    Object.keys(rawValues).forEach((key) => {
-      const value = rawValues[key];
+    Object.keys(formValues).forEach((key) => {
+      const value = formValues[key];
 
       if (value !== '' && value !== null && value !== undefined && value !== false) {
         filtres[key] = value;

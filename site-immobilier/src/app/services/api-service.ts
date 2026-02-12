@@ -40,22 +40,33 @@ export class ApiService {
   }
 
   getOffresRecherche(params: any) {
-    const queryParts: string[] = [];
+    const morceauxLien: string[] = [];
 
-    Object.keys(params).forEach((key) => {
-      let value = params[key];
-
-      if (value === 'true' || value === true) value = 1;
-      if (value === 'false' || value === false) value = 0;
-
-      const apiKey = key === 'ville' ? 'localisation' : key;
-
-      queryParts.push(`${apiKey}=${encodeURIComponent(value)}`);
+    Object.keys(params).forEach((nomChamp) => {
+      let value = params[nomChamp];
+      if (value === 'true' || value === true) {
+        value = 1;
+      }
+      if (value === 'false' || value === false) {
+        value = 0;
+      }
+      let nomParam;
+      if (nomChamp === 'ville') {
+        nomParam = 'localisation';
+      } else {
+        nomParam = nomChamp;
+      }
+      morceauxLien.push(`${nomParam}=${encodeURIComponent(value)}`);
     });
-
-    const queryString = queryParts.join('&');
-    const url = `${this.baseUrl}offres.php${queryString ? '?' + queryString : ''}`;
-
-    return this.monHttpClient.get(url, { responseType: 'text' });
+    const chaineParams = morceauxLien.join('&');
+    let url;
+    if (chaineParams) {
+      url = `${this.baseUrl}offres.php?${chaineParams}`;
+    } else {
+      url = `${this.baseUrl}offres.php`;
+    }
+    return this.monHttpClient.get(url, {
+      responseType: 'text',
+    });
   }
 }
