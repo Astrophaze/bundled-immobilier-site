@@ -1,0 +1,31 @@
+<div class="container-fluid p-0 overflow-hidden"> 
+  <div class="row g-0 align-items-center">
+    <div class="col-auto bar-fine color1 d-none d-md-block"></div>
+    <div class="col-auto bar-moyenne color2 d-none d-md-block"></div>
+    <div class="col-auto bar-large color3 d-none d-md-block"></div>
+
+    @if (monArticle(); as article) {
+      <div class="col-12 col-md-8 bar-fond color4 d-flex align-items-center position-relative padding">
+        <div class="col-12 col-md-7">
+          <div class="p-4 p-md-5 text-white">
+            <h1>{{ article.titre }}</h1>
+            <div class="trait"></div>
+            <p class="text-start">{{ article.contenu }}</p>
+            <a href="#" class="btn fw-bold boutton mt-3">
+              {{ article.libelle_lien }} 
+              <span><img class="ms-3 ms-md-5 mb-1" src="images/right-arrow white.png" alt="fleche droite"></span>
+            </a>
+          </div>
+        </div>
+
+        
+        @if (monArticle(); as article) {
+          <div class="image-position d-none d-md-block">
+            <img src="images/DOTS.png" class="point" alt="Points" />
+            <img [src]="article.photoUrl" class="image" [alt]="article.titre" />
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

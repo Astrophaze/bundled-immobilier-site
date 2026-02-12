@@ -1,0 +1,93 @@
+@use '../../../variables' as *;
+
+.footer-bg {
+  background-color: $noir;
+}
+
+.titre-footer {
+    font-size: 30px;
+  font-weight: 400;
+  color: $blanc;
+}
+
+.trait-orange {
+    width: 50px;
+    height: 3px;
+  background-color: $orange;
+}
+
+.custom-input {
+  background-color: $blanc;
+  border-radius: 8px;
+  border: 0px;
+  padding: 10px 15px;
+}
+
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+
+.nav-footer a {
+  color: $orange;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+hr {
+  margin: 10px 0px;
+  border: 0px;
+  border-top: 1px solid #ffffff;
+  opacity: 1;
+}
+
+.bouton {
+  background-color: $orange;
+  color: $blanc;
+  border-radius: 5px;
+  border: 0px;
+  padding: 10px 30px;
+  margin-left: 0px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+    .titre-footer {
+        font-size: 40px;
+    }
+    .bouton {
+        width: auto;
+        margin-left: 0px;
+    }
+    .border-md-end {
+        border-right: 1px solid #ffffff !important;
+    }
+}
+
+.icon img {
+  height: 30px;
+  width: 30px;
+  object-fit: contain;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.small {
+  font-size: 13px;
+}
+
+.text-orange {
+  color: $orange !important;
+} 
+
+@media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1200px;
+    }
+}

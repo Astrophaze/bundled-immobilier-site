@@ -1,0 +1,73 @@
+services:
+  # Un service pour notre app Angular
+  site:
+    # On lui dit de prendre le Dockerfile contenu dans notre dossier /site
+    build: ./site-immobilier
+    container_name: site-immobilier
+    # Correspondance entre notre dossier site et le dossier /app sur le serveur Node20
+    # Puis on créer également un volume pour node_modules sur le serveur afin qu'il ne soit pas écrasé à chaque fois
+    volumes:
+      - ./site-immobilier:/app
+      - /app/node_modules
+    # Correspondance entre le port 4200 de notre machine (localhost) et le port 4200 du container (Ouvert grâce à l'instruction EXPOSE du Dockerfile)
+    ports:
+      - "4200:4200"
+    depends_on:
+      - php
+  php:
+    # On lui dit de prendre le Dockerfile situé dans le dossier /api
+    build: ./api
+    container_name: api-immobilier
+    # On fait matcher le port 8080 de notre machine (localhost) et le port 80 du container (Ouvert grâce à l'instruction EXPOSE du Dockerfile)
+    ports:
+      - "8080:80"
+    # On fait une correspondance entre le dossier src de notre machine et le dossier /var/www/html du serveur apahce du conteneur
+    # On fait également une correspondance pour la config de msmtprc
+    volumes:
+      - ./api/public:/var/www/html/public
+      - ./api/.env:/var/www/html/.env
+      - ./api/msmtprc:/etc/msmtprc
+    environment:
+      PHP_IDE_CONFIG: "serverName=docker"
+    depends_on:
+      - db
+      - mailpit
+
+  db:
+    image: mariadb:11
+    container_name: api_immobilier_mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: api_immobilier
+      MARIADB_USER: api_immobilier_user
+      MARIADB_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./bdd_immobilier.sql:/docker-entrypoint-initdb.d/bdd_immobilier.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: api_immobilier_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - db
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: api_immobilier_mailpit
+    restart: always
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+volumes:
+  db_data:

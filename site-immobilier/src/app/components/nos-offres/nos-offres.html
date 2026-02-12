@@ -1,0 +1,37 @@
+<div class="container">
+    <img src="images/DOTS.png" id="slider-dots"/>
+    <div class="d-flex justify-content-between align-items-end mb-5">
+        <h2 class="mb-0">Nos bureaux</h2>
+        <a href="#" id="lien_page_offres">Toutes les offres <img src="images/right-arrow black.png"/></a>
+    </div>
+    <img src="images/to-left.png" class="btn-slider btnPrev" (click)="slidePrev()" alt="Précédent"/>
+    <img src="images/to-right.png" class="btn-slider btnNext" (click)="slideNext()" alt="Suivant"/>
+    <swiper-container
+    #swiperEl
+    slides-per-view="3"
+    pagination="false"
+    navigation="false"
+    loop="true"
+    autoplay-delay="3000"
+    class="carousel"
+    [breakpoints]="breakpoints"
+    >
+        @for(offre of mesOffres(); track offre.id) {
+            <swiper-slide class="p-3">
+                <div class="card h-100 shadow-sm border-0 card-immobilier mx-auto">
+                    <div class="img-container">
+                        <img [src]="offre.photoUrl" class="card-img-top" [alt]="offre.libelle" />
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title titre_offre">{{ offre.libelle }}</h5>
+                        <p class="card-text text-orange surface">{{ offre.surface }} M2</p>
+                        <p class="card-text ville"><strong>{{ offre.ville }}</strong></p>
+                        <div class="mt-auto">
+                        <a href="#" class="btn btn-dark btn-sm w-100 py-2 fw-bold">VOIR</a>
+                        </div>
+                    </div>
+                </div>
+            </swiper-slide>
+        }
+    </swiper-container>
+</div>

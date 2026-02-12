@@ -1,0 +1,61 @@
+<div class="header">
+    <div class="container">
+        <h2 class="mb-5 text-white">Votre recherche de biens</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <button type="button" class="rounded-4 btn"><strong>ACHETER</strong></button>
+                    <button type="button" class="rounded-4 btn"><strong>LOUER</strong></button>
+                    <button type="button" class="rounded-4 btn"><strong>ESTIMER</strong></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="type_bien my-4">
+            <form>
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                        <select class="form-select rounded-4 px-3 py-2 w-100" formControlName="type" aria-label="type_bien" style="appearance: none; -webkit-appearance: none; background-image: url('images/PLUS.png'); background-size: 12px;">
+                            <option>Type de bien</option>
+                            @for( type of mesTypes(); track type.id){
+                                <option>{{type.libelle}}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <select class="form-select rounded-4 px-3 py-2 w-100" formControlName="ville" aria-label="localistation" style="appearance: none; -webkit-appearance: none; background-image: url('images/PLUS.png'); background-size: 12px;">
+                            <option selected>Localisation</option>
+                            @for (maVille of mesVilles(); track maVille.ville){
+                            <option>{{ maVille.ville }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-12 col-md-4">
+                    <select class="form-select rounded-4 px-3 py-2 w-100" formControlName="budget" aria-label="budget" style="appearance: none; -webkit-appearance: none; background-image: url('images/PLUS.png'); background-size: 12px;">
+                        <option selected>Budget</option>
+                        <option>5k-10k €</option>
+                        <option>10k-15k €</option>
+                        <option>< 50000 €</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        </div>
+
+        <div class="bouton">
+            <div class="row g-3">
+                <div class="col-6 col-md-auto">
+                    <button type="button" class="w-100 d-flex justify-content-between btn bg-black text-white rounded-4 px-3 py-2 align-items-center">
+                        CHERCHER <img src="images/search.png" alt="chercher" class="ms-2" height="16">
+                    </button>
+                </div>
+                <div class="col-6 col-md-auto">
+                    <button type="button" class="w-100 d-flex justify-content-between btn bg-black text-white rounded-4 px-3 py-2 align-items-center">
+                        FILTRER <img src="images/filters.png" alt="filtrer" class="ms-2" height="16">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

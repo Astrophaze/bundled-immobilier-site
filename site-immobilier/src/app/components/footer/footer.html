@@ -1,0 +1,125 @@
+<footer class="footer-bg text-white py-5">
+  <div class="container">
+    <div class="row">
+      @if(articleContact(); as article) {
+        <div class="col-md-6 border-white border-md-end pe-md-5 mb-5 mb-md-0">
+          <h2 class="titre-footer">{{ article.titre }}</h2>
+          <div class="trait-orange mb-4"></div>
+          <div>
+            {{ article.contenu }}
+          </div>
+          <h2 class="fs-5 mt-5">RUDIGOZ & ASSOCIES, CONSEIL IMMOBILIER.</h2>
+        </div>
+      }
+
+      <div class="col-md-6 ps-md-5">
+        <h2 class="titre-footer">Prendre contact</h2>
+        <div class="trait-orange mb-4"></div>
+
+        @if (!formSent()) {
+            <form [formGroup]="monFormulaire" (ngSubmit)="envoyerFormulaireContact()">
+                <div class="row my-4">
+                    <div class="col-12 col-md-6">
+                        <input type="text" class="form-control" formControlName="prenom" 
+                        placeholder="Votre prénom" [class.is-invalid]="this.monFormulaire.get('prenom')?.touched && this.monFormulaire.get('prenom')?.invalid"/>
+                        
+                        @if(this.monFormulaire.get('prenom')?.touched && this.monFormulaire.get('prenom')?.hasError('required')) {
+                            <span class="text-danger small">Le prénom est obligatoire</span>
+                        }
+                        @if(this.monFormulaire.get('prenom')?.touched && this.monFormulaire.get('prenom')?.hasError('minlength')) {
+                            <span class="text-danger small">Le prénom doit faire au moins 3 caractères</span>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" class="form-control" formControlName="nom" 
+                        placeholder="Votre nom" [class.is-invalid]="this.monFormulaire.get('nom')?.touched && this.monFormulaire.get('nom')?.invalid"/>
+
+                        @if(this.monFormulaire.get('nom')?.touched && this.monFormulaire.get('nom')?.hasError('required')) {
+                            <span class="text-danger small">Le nom est obligatoire</span>
+                        }
+                        @if(this.monFormulaire.get('nom')?.touched && this.monFormulaire.get('nom')?.hasError('minlength')) {
+                            <span class="text-danger small">Le nom doit faire au moins 3 caractères</span>
+                        }
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-12 col-md-6">
+                        <input type="text" class="form-control" formControlName="telephone" 
+                        placeholder="Votre téléphone" [class.is-invalid]="this.monFormulaire.get('telephone')?.touched && this.monFormulaire.get('telephone')?.invalid"/>
+                        
+                        @if(this.monFormulaire.get('telephone')?.touched && this.monFormulaire.get('telephone')?.hasError('required')) {
+                            <span class="text-danger small">Le téléphone est obligatoire</span>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" class="form-control" formControlName="email" 
+                        placeholder="Votre email" [class.is-invalid]="this.monFormulaire.get('email')?.touched && this.monFormulaire.get('email')?.invalid"/>
+
+                        @if(this.monFormulaire.get('email')?.touched && this.monFormulaire.get('email')?.hasError('required')) {
+                            <span class="text-danger small">L'email est obligatoire</span>
+                        }
+                        @if(this.monFormulaire.get('email')?.touched && this.monFormulaire.get('email')?.hasError('email')) {
+                            <span class="text-danger small">L'email doit être valide</span>
+                        }
+                    </div>
+                </div>
+                
+                <div class="row my-4">
+                    <div class="col-12">
+                        <textarea placeholder="Votre message" [class.is-invalid]="this.monFormulaire.get('message')?.touched && this.monFormulaire.get('message')?.invalid" class="form-control" formControlName="message"></textarea>
+                        @if(this.monFormulaire.get('message')?.touched && this.monFormulaire.get('message')?.hasError('required')) {
+                            <span class="text-danger small">Le message est obligatoire</span>
+                        }
+                        @if(this.monFormulaire.get('message')?.touched && this.monFormulaire.get('message')?.hasError('minlength')) {
+                            <span class="text-danger small">Le message doit faire au moins 10 caractères</span>
+                        }
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="this.monFormulaire.invalid">ENVOYER</button>
+            </form>
+
+        } @else {
+          <div class="text-orange fw-bold fs-4 mt-4">
+            Merci :) Nous traiterons votre demande dans les meilleurs délais
+          </div>
+        }
+      </div>
+    </div>
+
+    <hr class="mt-5 border-white opacity-100">
+
+    <div class="nav-footer flex-column flex-md-row text-center">
+      <a href="#" class="py-2 py-md-0">QUI SOMMES NOUS ?</a>
+      <a href="#" class="py-2 py-md-0">NOTRE MÉTIER</a>
+      <a href="#" class="py-2 py-md-0">NOS OFFRES</a>
+      <a href="#" class="py-2 py-md-0">ACTUALITÉS</a>
+      <a href="#" class="py-2 py-md-0">NOS RÉFÉRENCES</a>
+      <a href="#" class="py-2 py-md-0">NOUS CONTACTER</a>
+    </div>
+
+    <hr class="mb-4 border-white opacity-100">
+
+    <div class="row align-items-center text-center text-md-start">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <img src="images/logo/logo.png" alt="Logos" class="img-fluid logo">
+      </div>
+      <div class="col-md-8 text-center text-md-end">
+        <div class="d-inline-flex gap-3 icon">
+          <img src="images/logo-facebook-icon.png" alt="fb">
+          <img src="images/linkedin icon.png" alt="li">
+          <img src="images/X-Logo.png" alt="x">
+          <img src="images/logo-pinterest.png" alt="pin">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4 small text-center text-md-start">
+      <div class="col-md-4 mb-3 mb-md-0">© 2026 | TOUS DROITS RÉSERVÉS</div>
+      <div class="col-md-8 text-center text-md-end flex-column flex-md-row">
+        <span class="d-block d-md-inline me-md-3">04 72 69 03 03</span>
+        <span class="d-block d-md-inline me-md-3">47 RUE TRONCHET - LYON 69006</span>
+        <span class="d-block d-md-inline">CONTACT@RUDIGOZ.COM</span>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,7 @@
+api/public/vendor
+api/.env
+api/.env.local
+site-immobilier/.vscode
+site-immobilier/node_modules
+site-immobilier/.angular
+site-immobilier/.editorconfig

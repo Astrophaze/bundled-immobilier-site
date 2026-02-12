@@ -1,0 +1,29 @@
+@use 'variables' as *;
+@use "swiper/css";
+@use "swiper/css/navigation";
+@use "swiper/css/pagination";
+
+* {
+    margin: 0;
+}
+body {
+    font-family: $font-family;
+}
+
+.text-orange {
+    color: $orange;
+}
+
+.btn-primary {
+    border-color: $orange;
+    background-color: $orange;
+    color: $blanc;
+    &:disabled {
+        border-color: $orange;
+        background-color: darken($orange, 20%);
+    }
+    &:hover {
+        border-color: $orange;
+        background-color: darken($orange, 5%);
+    }
+}

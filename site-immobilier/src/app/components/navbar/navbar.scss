@@ -1,0 +1,12 @@
+@use '../../../variables' as *;
+.lienMenu {
+  margin-left: 100px;
+}
+.logo {
+  margin-left: 100px;
+}
+.colorMenu {
+  color: $blanc;
+  font-family: $font-family;
+  font-weight: $fontStyleRegular;
+}
