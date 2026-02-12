@@ -5,44 +5,57 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiService {
-  
-  private baseUrl: string = "http://localhost:8080/";
+  private baseUrl: string = 'http://localhost:8080/';
 
   constructor(private monHttpClient: HttpClient) {}
 
-  getTypes () {
+  getTypes() {
     return this.monHttpClient.get(`${this.baseUrl}types.php`, {
-      responseType: 'text'
-    })
+      responseType: 'text',
+    });
   }
 
-  getVilles () {
+  getVilles() {
     return this.monHttpClient.get(`${this.baseUrl}villes.php`, {
-      responseType: 'text'
+      responseType: 'text',
     });
   }
 
   getArticle(id_article: number) {
     return this.monHttpClient.get(`${this.baseUrl}article.php?id=${id_article}`, {
-      responseType: 'text'
+      responseType: 'text',
     });
   }
 
-  getOffres () {
+  getOffres() {
     return this.monHttpClient.get(`${this.baseUrl}offres.php`, {
-      responseType: 'text'
+      responseType: 'text',
     });
   }
 
   postFormContact(formData: FormData) {
     return this.monHttpClient.post(`${this.baseUrl}contact.php`, formData, {
-      responseType: 'text'
+      responseType: 'text',
     });
   }
 
+  getOffresRecherche(params: any) {
+    const queryParts: string[] = [];
 
-  getOffresRecherche(type: string) {
-    return this.monHttpClient.get(`${this.baseUrl}offres.php?type=` + type);
+    Object.keys(params).forEach((key) => {
+      let value = params[key];
+
+      if (value === 'true' || value === true) value = 1;
+      if (value === 'false' || value === false) value = 0;
+
+      const apiKey = key === 'ville' ? 'localisation' : key;
+
+      queryParts.push(`${apiKey}=${encodeURIComponent(value)}`);
+    });
+
+    const queryString = queryParts.join('&');
+    const url = `${this.baseUrl}offres.php${queryString ? '?' + queryString : ''}`;
+
+    return this.monHttpClient.get(url, { responseType: 'text' });
   }
-
 }

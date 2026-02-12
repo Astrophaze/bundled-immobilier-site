@@ -11,42 +11,55 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
-
   mesTypes = signal<TypeModel[]>([]);
   mesVilles = signal<any[]>([]);
   formulaire: FormGroup;
 
-  constructor(private monApiService: ApiService, private router: Router, private fb: FormBuilder) {
-
+  constructor(
+    private monApiService: ApiService,
+    private router: Router,
+    private fb: FormBuilder,
+  ) {
     this.formulaire = this.fb.group({
       type: [''],
       ville: [''],
-      budget: ['']
+      budget: [null],
+      vente: [false],
+      location: [false],
     });
   }
 
   ngOnInit(): void {
-
-    // Récupération des types de biens
     this.monApiService.getTypes().subscribe({
       next: (response) => {
         this.mesTypes.set(JSON.parse(response));
-      }
+      },
     });
 
-    // Récupération des villes
     this.monApiService.getVilles().subscribe({
       next: (response) => {
         this.mesVilles.set(JSON.parse(response));
+      },
+    });
+  }
+
+  setTransaction(type: 'vente' | 'location') {
+    const currentVal = this.formulaire.get(type)?.value;
+    this.formulaire.get(type)?.setValue(!currentVal);
+  }
+
+  submitRecherche() {
+    const rawValues = this.formulaire.value;
+    const filtres: any = {};
+
+    Object.keys(rawValues).forEach((key) => {
+      const value = rawValues[key];
+
+      if (value !== '' && value !== null && value !== undefined && value !== false) {
+        filtres[key] = value;
       }
     });
 
+    this.router.navigate(['recherche'], { queryParams: filtres });
   }
-
-
-  submitRecherche(type: string) {
-    type = this.formulaire.get('type')?.value();
-    this.router.navigate(['recherche'], {queryParams: {}});
-  }
-
 }
