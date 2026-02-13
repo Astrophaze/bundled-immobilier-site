@@ -5,10 +5,10 @@ import { Recherche } from './pages/recherche/recherche';
 export const routes: Routes = [
     {
         path: '',
-        component: Homepage
+        loadComponent: () => import('./pages/homepage/homepage').then(m => m.Homepage)
     },
     {
         path: 'recherche',
-        component: Recherche
+        loadComponent: () => import('./pages/recherche/recherche').then(m => m.Recherche)
     }
 ];
